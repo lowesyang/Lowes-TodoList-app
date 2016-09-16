@@ -36,7 +36,7 @@
                 </div>
                 </div>
             </div>
-            <div class="noResWarning" v-if="!list.length && listLoaded">您还没有待做事项,赶快添加吧~</div>
+            <div class="noResWarning" v-if="!list.length && listLoaded">您还没有待做事项，赶快添加吧~</div>
         </div>
         <div class="addBox fr">
             <Add-item></Add-item>
@@ -165,6 +165,13 @@
             activate({next}){
                 this.initList();
                 next();
+            }
+        },
+        head:{
+            title(){
+                return {
+                    inner:'App'
+                }
             }
         }
     }

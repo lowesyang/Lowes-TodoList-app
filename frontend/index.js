@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import VueResource from "vue-resource";
 import VueAnimatedList from "vue-animated-list";
+import VueHead from "vue-head";
 import App from "./components/App.vue";
 import Login from "./components/LoginAndRegister/Login.vue";
 import Register from "./components/LoginAndRegister/Register.vue";
@@ -11,6 +12,7 @@ import LS from "./helpers/LocalStorage";
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(VueAnimatedList);
+Vue.use(VueHead);
 
 Vue.http.options.root='/';
 let userInfo=LS.getItem('userInfo');

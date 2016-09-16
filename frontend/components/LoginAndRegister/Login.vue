@@ -60,6 +60,13 @@
             actions:{
                 goLogin:goLogin
             }
+        },
+        head:{
+            title(){
+                return {
+                    inner:'登录'
+                }
+            }
         }
     }
 </script>

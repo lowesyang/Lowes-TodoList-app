@@ -65,6 +65,13 @@
             actions:{
                 goRegister:goRegister
             }
+        },
+        head:{
+            title(){
+                return {
+                    inner:'注册'
+                }
+            }
         }
     }
 </script>
