@@ -36,7 +36,7 @@
                 </div>
                 </div>
             </div>
-            <div class="noResWarning" v-if="!list.length && listLoaded">您还没有待做事项，赶快添加吧~</div>
+            <div class="noResWarning" v-if="!list.length && listLoaded">{{noRes}}</div>
         </div>
         <div class="addBox fr">
             <Add-item></Add-item>
@@ -51,6 +51,7 @@
         min-width:800px;
         max-width:1200px;
         margin:0px auto;
+        padding:0px 2%;
     }
     .todoBox>.addBox{
         margin-top: 65px;
@@ -77,7 +78,7 @@
         margin-right:-15px;
     }
     .todoBox>.listBox .addTime{
-        font-size:12px;
+        font-size:14px;
         margin-right:20px;
     }
     .item-transition{
@@ -119,17 +120,16 @@
     import Tabs from "./Tabs.vue";
     import LS from "../../helpers/LocalStorage";
     import router from "../../index";
-    import {initList,deleteItem,completeItem,listFilter} from "../../vuex/actions";
+    import {initList,deleteItem,completeItem,listFilter,getNoResForList} from "../../vuex/actions";
 
     export default{
         data(){
-            $(document).ready(function(){
+            $(function(){
                 $('.collapsible').collapsible({
                     accordion:false
                 });
             });
             return{
-
             }
         },
         components:{
@@ -145,6 +145,7 @@
         vuex:{
             getters:{
                 list:listFilter,
+                noRes:getNoResForList,
                 listLoaded:state=>state.listLoaded
             },
             actions:{

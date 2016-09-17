@@ -1,9 +1,9 @@
 <template>
     <div class="tabsBox">
         <ul class="tabs">
-            <li class="tab col s3" @click="changeFilter('NOT_COMPLETED')"><a class="active"  href="#">未完成</a></li>
-            <li class="tab col s3" @click="changeFilter('SHOW_ALL')"><a href="#">全部</a></li>
-            <li class="tab col s3" @click="changeFilter('COMPLETED')" ><a href="#">已完成</a></li>
+            <li class="tab col s3" id="not_completed" @click="changeFilter('NOT_COMPLETED')"><a class="active"  href="#">未完成</a></li>
+            <li class="tab col s3" id="show_all" @click="changeFilter('SHOW_ALL')"><a href="#">全部</a></li>
+            <li class="tab col s3" id="completed" @click="changeFilter('COMPLETED')" ><a href="#">已完成</a></li>
         </ul>
     </div>
 </template>
@@ -22,7 +22,7 @@
     import {changeFilter} from "../../vuex/actions";
     export default{
         data(){
-            $(document).ready(function(){
+            $(function(){
                 $('ul.tabs').tabs();
             });
             return {

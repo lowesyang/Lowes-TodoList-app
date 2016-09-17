@@ -5,7 +5,7 @@ var query=config.query;
 
 router.get('/:userId',function(req,res){
     var userId=req.params.userId;
-    query('select *,date_format(addTime,\'%Y-%m-%d %H:%m\') as time from todoList where userId=? and deleted=0',[userId],function(err,data){
+    query('select * from todoList where userId=? and deleted=0',[userId],function(err,data){
         if(err){
             return res.json({
                 code:1,
@@ -20,7 +20,7 @@ router.get('/:userId',function(req,res){
                     content:item.content,
                     completed:item.completed,
                     deleted:item.deleted,
-                    time:item.time
+                    time:item.addTime
                 }
             });
             res.json({
@@ -63,7 +63,8 @@ router.post('/addItem',function(req,res){
             return res.json({
                 code:0,
                 msg:"添加事项成功!",
-                newId:data.insertId
+                newId:data.insertId,
+                addTime:now_datetime
             })
         }
         else{
