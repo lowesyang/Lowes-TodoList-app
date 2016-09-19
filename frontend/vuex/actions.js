@@ -63,3 +63,7 @@ export const getNoResForList=(state)=>{
 export const goSearch=({dispatch},keywords)=>{
     dispatch('GOSEARCH',keywords);
 }
+
+export const logOut=({dispatch})=>{
+    dispatch('LOGOUT');
+}

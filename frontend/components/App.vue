@@ -103,15 +103,14 @@
     import {goSearch} from "../vuex/actions";
     export default{
         data(){
-            let userInfo=LS.getItem("userInfo");
             return {
-                isLogin:userInfo && userInfo.token
             }
         },
         store,
         vuex:{
             getters:{
-                isLoaded:state=>state.isLoaded
+                isLoaded:state=>state.isLoaded,
+                isLogin:state=>state.isLogin
             },
             actions:{
                 goSearch:goSearch

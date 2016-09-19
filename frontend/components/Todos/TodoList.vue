@@ -119,8 +119,7 @@
     import AddItem from "./AddItem.vue";
     import Tabs from "./Tabs.vue";
     import LS from "../../helpers/LocalStorage";
-    import router from "../../index";
-    import {initList,deleteItem,completeItem,listFilter,getNoResForList} from "../../vuex/actions";
+    import {initList,deleteItem,completeItem,listFilter,getNoResForList,logOut} from "../../vuex/actions";
 
     export default{
         data(){
@@ -136,12 +135,6 @@
             AddItem,
             Tabs
         },
-        methods:{
-            logout(){
-                LS.clear();
-                router.go({path:'/'});
-            }
-        },
         vuex:{
             getters:{
                 list:listFilter,
@@ -151,7 +144,8 @@
             actions:{
                 initList:initList,
                 deleteItem:deleteItem,
-                completeItem:completeItem
+                completeItem:completeItem,
+                logout:logOut
             }
         },
         route:{

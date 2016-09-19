@@ -6,12 +6,15 @@ import DecorateTime from "../helpers/DecorateTime";
 import moment from "moment";
 Vue.use(Vuex);
 
+let userInfo=LS.getItem("userInfo");
+
 const state={
     filter:'NOT_COMPLETED',
     list:[],    //用于显示的列表
     store_list:[],  //用于存储服务器返回的列表
     isLoaded:true,
-    listLoaded:true
+    listLoaded:true,
+    isLogin:userInfo && userInfo.token
 }
 
 const mutations={
@@ -41,7 +44,7 @@ const mutations={
             },(response)=>{
                 Materialize.toast("登录失败,请检查网络配置!",3000);
             }).then(()=>{
-                state.isLoaded=true;
+                state.isLoaded=state.isLogin=true;
         })
     },
     REGISTER(state,userName,passWord,cfPassWord){
@@ -72,8 +75,13 @@ const mutations={
             },(response)=>{
                 Materialize.toast("注册失败,请检查网络配置!",3000);
             }).then(()=>{
-            state.isLoaded=true;
+            state.isLoaded=state.isLogin=true;
         })
+    },
+    LOGOUT(state){
+        LS.clear();
+        state.isLogin=false;
+        router.go({path:'/'});
     },
     INITLIST(state){
         let userInfo=LS.getItem('userInfo');
