@@ -41,7 +41,7 @@
 </style>
 <script>
     import LS from "../../helpers/LocalStorage";
-    import {goLogin} from "../../vuex/actions";
+    import {goLogin} from "./actions";
     export default{
         data(){
             return{

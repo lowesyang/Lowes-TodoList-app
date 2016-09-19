@@ -45,7 +45,7 @@
 </style>
 <script>
     import LS from "../../helpers/LocalStorage";
-    import {goRegister} from "../../vuex/actions";
+    import {goRegister} from "./actions";
     export default{
         data(){
             return{

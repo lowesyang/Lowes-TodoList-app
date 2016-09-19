@@ -100,7 +100,7 @@
 <script>
     import store from "../vuex/store";
     import LS from "../helpers/LocalStorage";
-    import {goSearch} from "../vuex/actions";
+    import {goSearch} from "./Todos/actions";
     export default{
         data(){
             return {

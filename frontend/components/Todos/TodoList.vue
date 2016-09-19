@@ -119,7 +119,8 @@
     import AddItem from "./AddItem.vue";
     import Tabs from "./Tabs.vue";
     import LS from "../../helpers/LocalStorage";
-    import {initList,deleteItem,completeItem,listFilter,getNoResForList,logOut} from "../../vuex/actions";
+    import {initList,deleteItem,completeItem,listFilter,getNoResForList} from "./actions";
+    import {logOut} from "../LoginAndRegister/actions";
 
     export default{
         data(){

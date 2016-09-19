@@ -1,11 +1,3 @@
-export const goLogin=({dispatch},usrName,psWord)=>{
-    dispatch('LOGIN',usrName,psWord)
-}
-
-export const goRegister=({dispatch},usrName,psWord,cfpsWord)=>{
-    dispatch('REGISTER',usrName,psWord,cfpsWord);
-}
-
 export const initList=({dispatch})=>{
     dispatch('INITLIST');
 }
@@ -62,8 +54,4 @@ export const getNoResForList=(state)=>{
 
 export const goSearch=({dispatch},keywords)=>{
     dispatch('GOSEARCH',keywords);
-}
-
-export const logOut=({dispatch})=>{
-    dispatch('LOGOUT');
 }

@@ -19,7 +19,7 @@
     }
 </style>
 <script>
-    import {changeFilter} from "../../vuex/actions";
+    import {changeFilter} from "./actions";
     export default{
         data(){
             $(function(){

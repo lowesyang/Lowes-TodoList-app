@@ -43,7 +43,7 @@
     }
 </style>
 <script>
-    import {addItem} from "../../vuex/actions";
+    import {addItem} from "./actions";
     export default{
         data(){
             return{
