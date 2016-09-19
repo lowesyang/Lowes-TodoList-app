@@ -3,14 +3,21 @@
         <div class="title">添加待做事项</div>
         <form>
             <div class="input-field">
-                <input type="text" id="addTitle" class="validate " v-model="title" />
+                <input
+                        type="text"
+                        id="addTitle"
+                        class="validate"
+                        :value="title"
+                        @input="updateTitle"
+                />
                 <label for="addTitle">标题</label>
             </div>
             <div class="input-field">
                 <textarea
                         id="addContent"
                         class="materialize-textarea "
-                        v-model="content"
+                        :value="content"
+                        @input="updateContent"
                 >
                 </textarea>
                 <label for="addContent">详细内容</label>
@@ -18,7 +25,7 @@
             <button
                     type="submit"
                     class="btn-floating btn-normal waves-effect light-blue darken-1 fr"
-                    @click.prevent="addItem(this.title,this.content)"
+                    @click.prevent="addItem"
             >
                 <i class="material-icons">add</i>
             </button>
@@ -43,17 +50,21 @@
     }
 </style>
 <script>
-    import {addItem} from "./actions";
+    import {addItem,updateTitle,updateContent} from "./actions";
     export default{
         data(){
             return{
-                title:'',
-                content:''
             }
         },
         vuex:{
+            getters:{
+                title:state=>state.addItem.title,
+                content:state=>state.addItem.content
+            },
             actions:{
-                addItem:addItem
+                addItem:addItem,
+                updateTitle:updateTitle,
+                updateContent:updateContent
             }
         }
     }

@@ -21,7 +21,7 @@
         </form>
     </div>
 </template>
-<style>
+<style scoped>
     .registerBox{
         width:460px;
         margin:60px auto;

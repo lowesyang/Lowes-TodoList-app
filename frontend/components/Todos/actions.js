@@ -1,3 +1,11 @@
+export const updateTitle=({dispatch},e)=>{
+    dispatch('UPDATETITLE',e.target.value);
+}
+
+export const updateContent=({dispatch},e)=>{
+    dispatch('UPDATECONTENT',e.target.value);
+}
+
 export const initList=({dispatch})=>{
     dispatch('INITLIST');
 }
@@ -19,12 +27,8 @@ export const listFilter=(state)=>{
     return list;
 }
 
-export const addItem=({dispatch},title,content)=>{
-    let item={
-        title,
-        content
-    }
-    dispatch('ADDITEM',item);
+export const addItem=({dispatch})=>{
+    dispatch('ADDITEM');
 }
 
 export const deleteItem=({dispatch},index)=>{

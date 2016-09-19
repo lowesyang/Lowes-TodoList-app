@@ -15,7 +15,7 @@
         </div>
     </li>
 </template>
-<style>
+<style scoped>
     .listBox .completeBtn{
         width:25px;
         height:25px;

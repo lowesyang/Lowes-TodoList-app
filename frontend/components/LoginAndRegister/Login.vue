@@ -17,7 +17,7 @@
         </form>
     </div>
 </template>
-<style>
+<style scoped>
     .loginBox{
         width:460px;
         margin:60px auto;

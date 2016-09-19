@@ -9,6 +9,10 @@ Vue.use(Vuex);
 let userInfo=LS.getItem("userInfo");
 
 const state={
+    addItem:{
+        title:'',
+        content:''
+    },
     filter:'NOT_COMPLETED',
     list:[],    //用于显示的列表
     store_list:[],  //用于存储服务器返回的列表
@@ -112,7 +116,14 @@ const mutations={
             state.list=state.store_list.slice();
         })
     },
-    ADDITEM(state,item){
+    UPDATETITLE(state,data){
+        Vue.set(state.addItem,'title',data);
+    },
+    UPDATECONTENT(state,data){
+        Vue.set(state.addItem,'content',data);
+    },
+    ADDITEM(state){
+        let item=state.addItem;
         if(item.title=="") return Materialize.toast('事项标题不得为空!',3000);
         let userInfo=LS.getItem('userInfo');
         state.isLoaded=false;
@@ -134,8 +145,14 @@ const mutations={
                     };
 
                     state.store_list.push(newItem);
+                    state.addItem={
+                        title:'',
+                        content:''
+                    }
                 }
                 else Materialize.toast(res.msg,3000);
+
+
             },(response)=>{
                 Materialize.toast('获取列表失败，请检查网络配置!',3000);
             }).then(()=>{

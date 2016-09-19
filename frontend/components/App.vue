@@ -19,7 +19,9 @@
         <router-view></router-view>
     </div>
 </template>
-<style>
+
+<!--局部css-->
+<style scoped>
     .app{
         width:100%;
     }
@@ -42,19 +44,6 @@
     }
     .app>.header .title.noLogin{
         text-align: center;
-    }
-    .input-field input[type=text]:focus + label,
-    .input-field input[type=password]:focus + label,
-    .input-field textarea.materialize-textarea:focus+label{
-        color: #039be5;
-    }
-    .input-field input[type=text]:focus,
-    .input-field input[type=text].valid,
-    .input-field input[type=password]:focus,
-    .input-field input[type=password].valid,
-    .input-field textarea.materialize-textarea:focus{
-        border-bottom: 1px solid #039be5;
-        box-shadow: 0 1px 0 0 #039be5;
     }
     .app>.header .input-field{
         margin-top:0;
@@ -97,6 +86,24 @@
         margin:0;
     }
 </style>
+
+<!--全局CSS-->
+<style>
+    .input-field input[type=text]:focus + label,
+    .input-field input[type=password]:focus + label,
+    .input-field textarea.materialize-textarea:focus+label{
+        color: #039be5;
+    }
+    .input-field input[type=text]:focus,
+    .input-field input[type=text].valid,
+    .input-field input[type=password]:focus,
+    .input-field input[type=password].valid,
+    .input-field textarea.materialize-textarea:focus{
+        border-bottom: 1px solid #039be5;
+        box-shadow: 0 1px 0 0 #039be5;
+    }
+</style>
+
 <script>
     import store from "../vuex/store";
     import LS from "../helpers/LocalStorage";

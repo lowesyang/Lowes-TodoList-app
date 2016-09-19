@@ -45,7 +45,7 @@
         <div class="cl"></div>
     </div>
 </template>
-<style>
+<style scoped>
     .todoBox{
         width:80%;
         min-width:800px;
