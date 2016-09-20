@@ -97,7 +97,7 @@ router.post('/register',function(req,res){
                     })
                 }
                 if(ddata){
-                    var token=encrypt({username:users.usrName});
+                    var token=encrypt({userName:users.usrName});
                     res.json({
                         code:0,
                         token:token,

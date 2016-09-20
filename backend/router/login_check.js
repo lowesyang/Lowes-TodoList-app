@@ -19,7 +19,7 @@ router.all('*',function(req,res,next){
     }
 
     var userName=decoded.userName;
-    query("select * from users where userName=?",[userName],function(err,data){
+    query("select * from users where username=?",[userName],function(err,data){
         if(err){
             return res.json({
                 code:1,
