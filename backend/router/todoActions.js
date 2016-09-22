@@ -25,7 +25,7 @@ router.get('/:userId',function(req,res){
             });
             res.json({
                 code:0,
-                list:list
+                list:list.reverse()
             })
         }
         else{

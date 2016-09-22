@@ -1,8 +1,8 @@
 var mysql=require("mysql");
 var pool=mysql.createPool({
-    host:'127.0.0.1',
+    host:'localhost',
     user:'root',
-    password:'root',
+    password:'19951102',
     database:'todo_list'
 })
 
