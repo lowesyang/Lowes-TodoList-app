@@ -2,7 +2,7 @@ var mysql=require("mysql");
 var pool=mysql.createPool({
     host:'localhost',
     user:'root',
-    password:'19951102',
+    password:'root',
     database:'todo_list'
 })
 
