@@ -12,9 +12,6 @@ module.exports={
                 test:/\.js[x]?$/,
                 loader:'babel',
                 exclude:/node_modules/,
-                query:{
-                    presets:['es2015','stage-0']
-                },
                 plugins:['transform-time']
             },
             {

@@ -2,16 +2,15 @@
     <div class="todoBox">
         <div class="listBox fl">
             <Tabs></Tabs>
-            <ul class="collapsible" data-collapsible="accordion">
+            <transition-group name="item" tag="ul" class="collapsible" data-collapsible="accordion">
                 <li v-for="item in list"
-                    track-by="id"
-                    transition="item"
+                    :key="item.id"
                 >
                     <div class="collapsible-header">
                         <div class="completeBtn fl">
-                            <input v-if="!item.completed" type="checkbox" id={{item.id}} @click="completeItem(item.id)" />
-                            <input v-else type="checkbox" id={{item.id}} checked="checked" disabled="disabled"/>
-                            <label for={{item.id}}></label>
+                            <input v-if="!item.completed" type="checkbox" :id="item.id" @click="completeItem(item.id)" />
+                            <input v-else type="checkbox" :id="item.id" checked="checked" disabled="disabled"/>
+                            <label :for="item.id"></label>
                         </div>
                         {{item.title}}
                         <div class="deleteBtn fr" @click.stop="deleteItem(item.id)">
@@ -24,7 +23,7 @@
                         <p>{{item.content}}</p>
                     </div>
                 </li>
-            </ul>
+            </transition-group>
             <div class="preloader-wrapper active" v-if="!listLoaded">
                 <div class="spinner-layer ">
                     <div class="circle-clipper left">
@@ -40,7 +39,7 @@
         </div>
         <div class="addBox fr">
             <Add-item></Add-item>
-            <a class="waves-effect waves-light btn red logoutBtn" @click.stop="logout">登出</a>
+            <a class="waves-effect waves-light btn red logoutBtn" @click.stop="logOut">登出</a>
         </div>
         <div class="cl"></div>
     </div>
@@ -81,7 +80,7 @@
         font-size:14px;
         margin-right:20px;
     }
-    .item-transition{
+    .item-enter-active,.item-leave-active{
         -webkit-transition: opacity .3s ease;
         -moz-transition: opacity .3s ease;
         -ms-transition: opacity .3s ease;
@@ -98,7 +97,7 @@
     .item-enter{
         opacity:0;
     }
-    .item-leave{
+    .item-leave-active{
         opacity:0;
         position: absolute;
     }
@@ -119,8 +118,9 @@
     import AddItem from "./AddItem.vue";
     import Tabs from "./Tabs.vue";
     import LS from "../../helpers/LocalStorage";
-    import {initList,deleteItem,completeItem,listFilter,getNoResForList} from "./actions";
-    import {logOut} from "../LoginAndRegister/actions";
+    import {initList,deleteItem,completeItem} from "../../vuex/actions";
+    import {logOut} from "../../vuex/actions";
+    import {mapActions,mapGetters} from "vuex";
 
     export default{
         data(){
@@ -129,6 +129,7 @@
                     accordion:false
                 });
             });
+            this.$store.dispatch('initList');
             return{
             }
         },
@@ -136,31 +137,29 @@
             AddItem,
             Tabs
         },
-        vuex:{
-            getters:{
-                list:listFilter,
-                noRes:getNoResForList,
-                listLoaded:state=>state.listLoaded
-            },
-            actions:{
-                initList:initList,
-                deleteItem:deleteItem,
-                completeItem:completeItem,
-                logout:logOut
-            }
+        computed:{
+            ...mapGetters({
+                list:'listFilter',
+                noRes:'getNoResForList',
+                listLoaded:'listLoaded'
+            })
         },
-        route:{
-            data({next,redirect}){
-                let userInfo=LS.getItem('userInfo');
-                if(userInfo && userInfo.token) next();
-                else {
-                    Materialize.toast('请先登录!',3000);
-                    redirect({path:'/'});
-                }
-            },
-            activate({next}){
-                this.initList();
+        methods:{
+            ...mapActions({
+                initList:'initList',
+                deleteItem:'deleteItem',
+                completeItem:'completeItem',
+                logOut:'logOut'
+            })
+        },
+        beforeRouteEnter(to,from,next){
+            let userInfo=LS.getItem('userInfo');
+            if(userInfo && userInfo.token) {
                 next();
+            }
+            else {
+                Materialize.toast('请先登录!',3000);
+                next({path:'/'});
             }
         },
         head:{

@@ -19,7 +19,7 @@
     }
 </style>
 <script>
-    import {changeFilter} from "./actions";
+    import {changeFilter} from "../../vuex/actions";
     export default{
         data(){
             $(function(){
@@ -29,9 +29,9 @@
 
             }
         },
-        vuex:{
-            actions:{
-                changeFilter:changeFilter
+        methods:{
+            changeFilter(type){
+                this.$store.dispatch('changeFilter',type);
             }
         }
     }

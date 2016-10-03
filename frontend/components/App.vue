@@ -1,21 +1,6 @@
 <template>
     <div class="app">
-        <div class="header">
-            <div class="con">
-                <div class="title" v-bind:class="{'noLogin':!isLogin,'fl':isLogin}">LowesTodos</div>
-                <form>
-                    <div class="input-field fr" v-if="isLogin">
-                        <i class="material-icons prefix">search</i>
-                        <input type="text" id="keywords" class="validate" v-model="keywords" @input="goSearch(keywords)">
-                        <label for="keywords">todos</label>
-                    </div>
-                </form>
-                <div class="cl"></div>
-            </div>
-        </div>
-        <div class="progress" v-show="!isLoaded">
-            <div class="indeterminate"></div>
-        </div>
+        <Header></Header>
         <router-view></router-view>
     </div>
 </template>
@@ -24,66 +9,6 @@
 <style scoped>
     .app{
         width:100%;
-    }
-    .app>.header{
-        width:100%;
-        height:60px;
-        line-height:60px;
-        background-color: #039be5;
-    }
-    .app>.header>.con{
-        width:80%;
-        min-width:800px;
-        max-width:1200px;
-        margin:0px auto;
-        padding:0px 2%;
-    }
-    .app>.header .title{
-        font-size:24px;
-        color:white;
-    }
-    .app>.header .title.noLogin{
-        text-align: center;
-    }
-    .app>.header .input-field{
-        margin-top:0;
-        height:50px;
-    }
-    .app>.header .input-field>i{
-        color:#cccccc;
-        font-size:28px;
-        margin-top: 18px;
-        margin-left:10px;
-    }
-    .app>.header .input-field input{
-        font-size:14px;
-        width:100px;
-        height:30px;
-        color:white;
-    }
-    .app>.header .input-field input:focus{
-        width:250px;
-        border-bottom: 1px solid white;
-        box-shadow: 0 1px 0 0 white;
-    }
-    .app>.header .input-field input:focus+label{
-        color:white;
-    }
-    .app>.header .input-field input+label{
-        color:#cccccc;
-        height:20px;
-        margin-top: -8px;
-    }
-    .app>.header .input-field input+label.active{
-        margin-top:-4px;
-    }
-    .app>.header .input-field .prefix.active{
-        color:white;
-    }
-    .app>.progress{
-        position: fixed;
-        top:60px;
-        margin:0;
     }
 </style>
 
@@ -105,23 +30,16 @@
 </style>
 
 <script>
-    import store from "../vuex/store";
     import LS from "../helpers/LocalStorage";
-    import {goSearch} from "./Todos/actions";
+    import Header from "./Common/Header.vue";
+
     export default{
         data(){
             return {
             }
         },
-        store,
-        vuex:{
-            getters:{
-                isLoaded:state=>state.isLoaded,
-                isLogin:state=>state.isLogin
-            },
-            actions:{
-                goSearch:goSearch
-            }
+        components:{
+            Header
         }
     }
 </script>

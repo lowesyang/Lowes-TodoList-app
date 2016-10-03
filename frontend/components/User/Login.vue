@@ -11,8 +11,8 @@
                 <label for="psWord">密码</label>
             </div>
             <div class="input-field buttonTag">
-                <a class="waves-effect btn-flat" v-link="{path:'register'}">去注册</a>
-                <button type="submit" class="btn waves-effect light-blue darken-1" @click.prevent="goLogin(this.userName,this.passWord)" >登录</button>
+                <router-link class="waves-effect btn-flat" to="/register">去注册</router-link>
+                <button type="submit" class="btn waves-effect light-blue darken-1" @click.prevent="goLogin(userName,passWord)" >登录</button>
             </div>
         </form>
     </div>
@@ -41,7 +41,6 @@
 </style>
 <script>
     import LS from "../../helpers/LocalStorage";
-    import {goLogin} from "./actions";
     export default{
         data(){
             return{
@@ -49,16 +48,17 @@
                 passWord:''
             }
         },
-        route:{
-            data({next,redirect}){
-                let userInfo=LS.getItem('userInfo');
-                if(userInfo && userInfo.token) redirect('/list/'+userInfo.userId);
-                else next();
-            }
+        beforeRouteEnter(to,from,next){
+            let userInfo=LS.getItem('userInfo');
+            if(userInfo && userInfo.token) next('/list/'+userInfo.userId);
+            else next();
         },
-        vuex:{
-            actions:{
-                goLogin:goLogin
+        methods:{
+            goLogin(userName,passWord){
+                this.$store.dispatch('goLogin',{
+                    usrName:userName,
+                    psWord:passWord
+                })
             }
         },
         head:{

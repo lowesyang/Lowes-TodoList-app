@@ -15,7 +15,7 @@
                 <label for="cfpsWord">确认密码</label>
             </div>
             <div class="input-field buttonTag">
-                <a class="waves-effect btn-flat" v-link="{path:'login'}">去登陆</a>
+                <router-link class="waves-effect btn-flat" to="/login">去登陆</router-link>
                 <button type="submit" class="btn waves-effect light-blue darken-1" @click.prevent="goRegister(this.userName,this.passWord,this.cfPassWord)" >注册</button>
             </div>
         </form>
@@ -45,7 +45,7 @@
 </style>
 <script>
     import LS from "../../helpers/LocalStorage";
-    import {goRegister} from "./actions";
+    import {goRegister} from "../../vuex/actions";
     export default{
         data(){
             return{
@@ -54,16 +54,18 @@
                 cfPassWord:''
             }
         },
-        route:{
-            data({next,redirect}){
-                let userInfo=LS.getItem('userInfo');
-                if(userInfo && userInfo.token) redirect('/list/'+userInfo.userId);
-                else next();
-            }
+        beforeRouteEnter(to,from,next){
+            let userInfo=LS.getItem('userInfo');
+            if(userInfo && userInfo.token) next('/list/'+userInfo.userId);
+            else next();
         },
-        vuex:{
-            actions:{
-                goRegister:goRegister
+        methods:{
+            goRegister(userName,passWord,cfpsWord){
+                this.$store.dispatch('goRegister',{
+                    usrName:userName,
+                    psWord:passWord,
+                    cfpsWord:cfpsWord
+                })
             }
         },
         head:{

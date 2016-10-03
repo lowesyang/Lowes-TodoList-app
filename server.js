@@ -17,6 +17,7 @@ app.use(expSession({
     resave:false,
     saveUninitialized:true
 }));
+
 app.use(compress());
 
 app.use('/',login_check);

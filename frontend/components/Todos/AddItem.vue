@@ -50,22 +50,25 @@
     }
 </style>
 <script>
-    import {addItem,updateTitle,updateContent} from "./actions";
+    import {addItem,updateTitle,updateContent} from "../../vuex/actions";
+    import {mapGetters,mapActions} from "vuex"
     export default{
         data(){
             return{
             }
         },
-        vuex:{
-            getters:{
-                title:state=>state.addItem.title,
-                content:state=>state.addItem.content
-            },
-            actions:{
-                addItem:addItem,
-                updateTitle:updateTitle,
-                updateContent:updateContent
-            }
-        }
+        computed:{
+            ...mapGetters({
+                title:'addTitle',
+                content:'addContent'
+            })
+        },
+        methods:{
+            ...mapActions({
+                addItem:'addItem',
+                updateTitle:'updateTitle',
+                updateContent:'updateContent'
+            })
+        },
     }
 </script>
