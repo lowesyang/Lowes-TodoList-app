@@ -9,6 +9,9 @@ export default {
         if(res=JSON.parse(temp)) return res;
         return temp;
     },
+    removeItem(key){
+        localStorage.removeItem(key);
+    },
     clear(){
         localStorage.clear();
     }

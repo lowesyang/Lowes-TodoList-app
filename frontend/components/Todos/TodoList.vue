@@ -3,26 +3,17 @@
         <div class="listBox fl">
             <Tabs></Tabs>
             <transition-group name="item" tag="ul" class="collapsible" data-collapsible="accordion">
-                <li v-for="item in list"
+                <Todo-item
+                    v-for="item in list"
                     :key="item.id"
+                    :title="item.title"
+                    :content="item.content"
+                    :itemId="item.id"
+                    :time="item.time"
+                    :completed="item.completed"
+                    :tag="item.tag"
                 >
-                    <div class="collapsible-header">
-                        <div class="completeBtn fl">
-                            <input v-if="!item.completed" type="checkbox" :id="item.id" @click="completeItem(item.id)" />
-                            <input v-else type="checkbox" :id="item.id" checked="checked" disabled="disabled"/>
-                            <label :for="item.id"></label>
-                        </div>
-                        {{item.title}}
-                        <div class="deleteBtn fr" @click.stop="deleteItem(item.id)">
-                            <i class="material-icons">delete</i>
-                        </div>
-                        <div class="addTime fr">{{item.time}}</div>
-                        <div class="cl"></div>
-                    </div>
-                    <div class="collapsible-body">
-                        <p>{{item.content}}</p>
-                    </div>
-                </li>
+                </Todo-item>
             </transition-group>
             <div class="preloader-wrapper active" v-if="!listLoaded">
                 <div class="spinner-layer ">
@@ -42,6 +33,7 @@
             <a class="waves-effect waves-light btn red logoutBtn" @click.stop="logOut">登出</a>
         </div>
         <div class="cl"></div>
+        <Add-tags></Add-tags>
     </div>
 </template>
 <style scoped>
@@ -60,25 +52,6 @@
         position: relative;
         width:65%;
         margin-top:10px;
-    }
-    .todoBox>.listBox>ul{
-    }
-    .todoBox>.listBox li{
-        width:100%;
-    }
-    .todoBox>.listBox .completeBtn{
-        width:25px;
-        height:25px;
-        margin-top: 8px;
-        margin-right:10px;
-    }
-    .todoBox>.listBox .deleteBtn{
-        width:35px;
-        margin-right:-15px;
-    }
-    .todoBox>.listBox .addTime{
-        font-size:14px;
-        margin-right:20px;
     }
     .item-enter-active,.item-leave-active{
         -webkit-transition: opacity .3s ease;
@@ -117,6 +90,8 @@
 <script>
     import AddItem from "./AddItem.vue";
     import Tabs from "./Tabs.vue";
+    import TodoItem from "./TodoItem.vue";
+    import AddTags from "./AddTagsModal.vue";
     import LS from "../../helpers/LocalStorage";
     import {initList,deleteItem,completeItem} from "../../vuex/actions";
     import {logOut} from "../../vuex/actions";
@@ -135,7 +110,9 @@
         },
         components:{
             AddItem,
-            Tabs
+            Tabs,
+            TodoItem,
+            AddTags
         },
         computed:{
             ...mapGetters({
@@ -145,12 +122,7 @@
             })
         },
         methods:{
-            ...mapActions({
-                initList:'initList',
-                deleteItem:'deleteItem',
-                completeItem:'completeItem',
-                logOut:'logOut'
-            })
+            ...mapActions(['initList','logOut'])
         },
         beforeRouteEnter(to,from,next){
             let userInfo=LS.getItem('userInfo');

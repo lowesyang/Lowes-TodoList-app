@@ -1,10 +1,15 @@
-export const isLoaded=state=>state.User.isLoaded;   //登录注册loading
+export const isLoaded=state=>{
+    if(state.User.isLogin) return state.Todos.isLoaded;
+    else return state.User.isLoaded;
+}   //登录注册loading
 
 export const isLogin=state=>state.User.isLogin;
 
 export const addTitle=state=>state.Todos.addItem.title;
 
 export const addContent=state=>state.Todos.addItem.content;
+
+export const addTag=state=>state.Todos.addTag;
 
 export const listFilter=state=>{
     let list=[];

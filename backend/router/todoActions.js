@@ -20,7 +20,8 @@ router.get('/:userId',function(req,res){
                     content:item.content,
                     completed:item.completed,
                     deleted:item.deleted,
-                    time:item.addTime
+                    time:item.addTime,
+                    tag:item.tag
                 }
             });
             res.json({
@@ -125,6 +126,42 @@ router.put('/completeItem',function(req,res){
             res.json({
                 code:1,
                 msg:'完成事项失败!'
+            })
+        }
+    })
+})
+
+router.post('/addTag',function(req,res){
+    var info={
+        tag:req.body.tag,
+        itemId:req.body.itemId,
+        userId:req.body.userId
+    };
+    if(info.tag.length>20){
+        return res.json({
+            code:1,
+            msg:'标签内容不得超过20个字符!'
+        })
+    }
+
+    query('update todoList set tag=? where id=? and userId=?',[info.tag,info.itemId,info.userId],function(err,data){
+        if(err){
+            return res.json({
+                code:1,
+                msg:err.toString()
+            })
+        }
+
+        if(data){
+            res.json({
+                code:0,
+                msg:'添加标签成功!'
+            })
+        }
+        else{
+            res.json({
+                code:1,
+                msg:'添加标签失败!'
             })
         }
     })

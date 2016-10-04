@@ -4,10 +4,12 @@ import DecorateTime from "../../helpers/DecorateTime";
 import moment from "moment";
 
 const state={
+    isLoaded:true,
     addItem:{
         title:'',
         content:''
     },
+    addTag:'',
     filter:'NOT_COMPLETED',
     list:[],    //用于显示的列表
     store_list:[],  //用于存储服务器返回的列表
@@ -21,7 +23,7 @@ const mutations={
         Vue.http.get('/list/'+userInfo.userId).then((response)=>{
             let res=response.body;
             if(!res.code){
-                let now=moment().format('D');
+                let now=moment();
                 state.store_list=res.list.map(item=>{
                     item.time=DecorateTime(item.time,now);
                     return item;
@@ -40,7 +42,7 @@ const mutations={
         },(response)=>{
             Materialize.toast("获取列表失败，请检查网络配置!",3000);
         }).then(()=>{
-            state.isLoaded=state.listLoaded=true;
+            state.listLoaded=true;
             state.list=state.store_list.slice();
         })
     },
@@ -49,6 +51,9 @@ const mutations={
     },
     UPDATECONTENT(state,data){
         Vue.set(state.addItem,'content',data);
+    },
+    UPDATETAG(state,data){
+        state.addTag=data;
     },
     ADDITEM(state){
         let item=state.addItem;
@@ -63,13 +68,14 @@ const mutations={
             }).then((response)=>{
             let res=response.body;
             if(!res.code){
-                let now=moment().format('D');
+                let now=moment();
                 let newItem={
                     ...item,
                     id:res.newId,
                     completed:0,
                     deleted:0,
-                    time:DecorateTime(res.addTime,now)
+                    time:DecorateTime(res.addTime,now),
+                    tag:''
                 };
 
                 state.store_list.push(newItem);
@@ -153,6 +159,41 @@ const mutations={
     },
     GOSEARCH(state,keywords){
         state.list=state.store_list.filter(item=>item.title.indexOf(keywords)>=0);
+    },
+    ADDTAG(state,itemId){
+        let tag=state.addTag;
+        let userId=LS.getItem('userInfo').userId;
+        state.isLoaded=false;
+        Vue.http.post('/list/addTag',
+            {
+                itemId:itemId,
+                tag:tag,
+                userId:userId
+            }).then((response)=>{
+            let res=response.body;
+            if(!res.code){
+                for(let i=0;i<state.store_list.length;i++){
+                    if(state.store_list[i].id==itemId){
+                        state.store_list[i].tag=tag;
+                        break;
+                    }
+                }
+                for(let i=0;i<state.list.length;i++){
+                    if(state.list[i].id==itemId){
+                        state.list[i].tag=tag;
+                        break;
+                    }
+                }
+                LS.removeItem('activeItem');
+                $('#addTagsBox').closeModal();
+                state.addTag='';
+            }
+            Materialize.toast(res.msg,3000);
+        },(response)=>{
+            Materialize.toast('完成事项失败，请检查网络配置!',3000);
+        }).then(()=>{
+            state.isLoaded=true;
+        })
     }
 };
 

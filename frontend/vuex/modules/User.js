@@ -5,7 +5,7 @@ import router from "../../index";
 let userInfo=LS.getItem("userInfo");
 
 const state={
-    isLoaded:true,      //登录注册loading
+    isLoaded:true,
     isLogin:userInfo && userInfo.token
 }
 

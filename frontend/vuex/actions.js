@@ -41,3 +41,11 @@ export const changeFilter=({commit},type)=>{
 export const goSearch=({commit},keywords)=>{
     commit('GOSEARCH',keywords);
 }
+
+export const addTag=({commit},itemId)=>{
+    commit('ADDTAG',itemId)
+}
+
+export const updateTag=({commit},e)=>{
+    commit('UPDATETAG',e.target.value);
+}
