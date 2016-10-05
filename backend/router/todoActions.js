@@ -1,12 +1,16 @@
 var router=require("express").Router();
 var config=require("../config/config");
 var moment=require("moment");
+var log4js=require("../config/log.config.js");
+var logger=log4js.getLogger('actions');
 var query=config.query;
 
 router.get('/:userId',function(req,res){
+    var ipAddress=req.connection.remoteAddress;
     var userId=req.params.userId;
     query('select * from todoList where userId=? and deleted=0',[userId],function(err,data){
         if(err){
+            logger.error(ipAddress+' '+err.toString());
             return res.json({
                 code:1,
                 msg:err.toString()
@@ -24,12 +28,14 @@ router.get('/:userId',function(req,res){
                     tag:item.tag
                 }
             });
+            logger.info(ipAddress+' 获取todolist成功');
             res.json({
                 code:0,
                 list:list.reverse()
             })
         }
         else{
+            logger.info(ipAddress+' 获取todolist失败');
             res.json({
                 code:1,
                 msg:"获取待做事项列表失败!"
@@ -39,6 +45,7 @@ router.get('/:userId',function(req,res){
 })
 
 router.post('/addItem',function(req,res){
+    var ipAddress=req.connection.remoteAddress;
     var info={
         title:req.body.title,
         content:req.body.content,
@@ -54,6 +61,7 @@ router.post('/addItem',function(req,res){
     query('insert into todoList (title,content,completed,deleted,userId,addTime) values (?,?,0,0,?,?)',
         [info.title,info.content,info.userId,now_datetime],function(err,data){
         if(err){
+            logger.error(ipAddress+' '+err.toString());
             return res.json({
                 code:1,
                 msg:err.toString()
@@ -61,6 +69,7 @@ router.post('/addItem',function(req,res){
         }
 
         if(data){
+            logger.info(ipAddress+' 添加事项成功');
             return res.json({
                 code:0,
                 msg:"添加事项成功!",
@@ -69,6 +78,7 @@ router.post('/addItem',function(req,res){
             })
         }
         else{
+            logger.info(ipAddress+' 添加事项失败');
             return res.json({
                 code:1,
                 msg:"添加事项失败!"
@@ -78,24 +88,28 @@ router.post('/addItem',function(req,res){
 })
 
 router.put('/deleteItem',function(req,res){
+    var ipAddress=req.connection.remoteAddress;
     var info={
         itemId:req.body.itemId,
         userId:req.body.userId
     };
     query('update todoList set deleted=1 where id=? and userId=?',[info.itemId,info.userId],function(err,data){
         if(err){
+            logger.error(ipAddress+' '+err.toString());
             return res.json({
                 code:1,
                 msg:err.toString()
             })
         }
         if(data){
+            logger.info(ipAddress+' 删除事项成功');
             res.json({
                 code:0,
                 msg:'事项删除成功!'
             })
         }
         else{
+            logger.info(ipAddress+' 删除事项失败')
             res.json({
                 code:1,
                 msg:'事项删除失败!'
@@ -105,24 +119,28 @@ router.put('/deleteItem',function(req,res){
 })
 
 router.put('/completeItem',function(req,res){
+    var ipAddress=req.connection.remoteAddress;
     var info={
         itemId:req.body.itemId,
         userId:req.body.userId
     };
     query('update todoList set completed=1 where id=? and userId=?',[info.itemId,info.userId],function(err,data){
         if(err){
+            logger.error(ipAddress+' '+err.toString());
             return res.json({
                 code:1,
                 msg:err.toString()
             })
         }
         if(data){
+            logger.info(ipAddress+' 完成事项成功');
             res.json({
                 code:0,
                 msg:'完成事项成功!'
             })
         }
         else{
+            logger.info(ipAddress+' 完成事项失败');
             res.json({
                 code:1,
                 msg:'完成事项失败!'
@@ -132,6 +150,7 @@ router.put('/completeItem',function(req,res){
 })
 
 router.post('/addTag',function(req,res){
+    var ipAddress=req.connection.remoteAddress;
     var info={
         tag:req.body.tag,
         itemId:req.body.itemId,
@@ -146,6 +165,7 @@ router.post('/addTag',function(req,res){
 
     query('update todoList set tag=? where id=? and userId=?',[info.tag,info.itemId,info.userId],function(err,data){
         if(err){
+            logger.error(ipAddress+' '+err.toString());
             return res.json({
                 code:1,
                 msg:err.toString()
@@ -153,12 +173,14 @@ router.post('/addTag',function(req,res){
         }
 
         if(data){
+            logger.info(ipAddress+' 添加标签成功');
             res.json({
                 code:0,
                 msg:'添加标签成功!'
             })
         }
         else{
+            logger.info(ipAddress+' 添加标签失败');
             res.json({
                 code:1,
                 msg:'添加标签失败!'

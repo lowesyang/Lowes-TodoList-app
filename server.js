@@ -6,6 +6,7 @@ var compress=require("compression");
 var login=require("./backend/router/login");
 var login_check=require("./backend/router/login_check");
 var todoActions=require("./backend/router/todoActions");
+var log4js=require("./backend/config/log.config.js");
 
 
 app.use(express.static('./'));
@@ -20,6 +21,7 @@ app.use(expSession({
 
 app.use(compress());
 
+app.use(log4js.connectLogger(log4js.getLogger('access'),{level:log4js.levels.INFO}));
 app.use('/',login_check);
 app.use('/user',login);
 app.use('/list',todoActions);
