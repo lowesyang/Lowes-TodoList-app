@@ -26,7 +26,7 @@
     }
 </style>
 <script>
-    import LS from "../../helpers/LocalStorage";
+    import {LS} from "../../helpers/Utils";
     export default{
         data(){
             return{

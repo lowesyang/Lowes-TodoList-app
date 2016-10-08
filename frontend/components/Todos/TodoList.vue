@@ -92,7 +92,7 @@
     import Tabs from "./Tabs.vue";
     import TodoItem from "./TodoItem.vue";
     import AddTags from "./AddTagsModal.vue";
-    import LS from "../../helpers/LocalStorage";
+    import {LS} from "../../helpers/Utils";
     import {initList,deleteItem,completeItem} from "../../vuex/actions";
     import {logOut} from "../../vuex/actions";
     import {mapActions,mapGetters} from "vuex";

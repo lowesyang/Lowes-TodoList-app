@@ -30,7 +30,7 @@
 </style>
 
 <script>
-    import LS from "../helpers/LocalStorage";
+    import {LS} from "../helpers/Utils";
     import Header from "./Common/Header.vue";
 
     export default{

@@ -1,5 +1,5 @@
 import Vue from "vue/dist/vue.min";
-import LS from "../../helpers/LocalStorage";
+import {LS} from "../../helpers/Utils";
 import router from "../../index";
 
 let userInfo=LS.getItem("userInfo");

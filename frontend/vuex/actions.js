@@ -8,6 +8,7 @@ export const goRegister=({commit},info)=>{
 
 export const logOut=({commit})=>{
     commit('LOGOUT');
+    commit('CLEARLIST');
 }
 
 export const updateTitle=({commit},e)=>{

@@ -1,6 +1,5 @@
 import Vue from "vue/dist/vue.min";
-import LS from "../../helpers/LocalStorage";
-import DecorateTime from "../../helpers/DecorateTime";
+import {DecorateTime,LS,DeepClone} from "../../helpers/Utils";
 import moment from "moment";
 
 const state={
@@ -14,7 +13,9 @@ const state={
     list:[],    //用于显示的列表
     store_list:[],  //用于存储服务器返回的列表
     listLoaded:true   //todolist响应loading
-}
+};
+
+const initState=DeepClone(state);
 
 const mutations={
     INITLIST(state){
@@ -194,6 +195,11 @@ const mutations={
         }).then(()=>{
             state.isLoaded=true;
         })
+    },
+    CLEARLIST(state){
+        for(let key in initState){
+            state[key]=initState[key];
+        }
     }
 };
 
