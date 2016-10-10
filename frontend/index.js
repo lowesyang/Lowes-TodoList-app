@@ -44,6 +44,7 @@ Vue.http.interceptors.push((request,next)=>{
     })
 })
 
+//路由配置
 const routes=[
     {
         path: '/',

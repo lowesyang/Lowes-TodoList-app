@@ -1,52 +1,52 @@
 export const goLogin=({commit},info)=>{
-    commit('LOGIN',info)
+    commit('login',info)
 }
 
 export const goRegister=({commit},info)=>{
-    commit('REGISTER',info);
+    commit('register',info);
 }
 
 export const logOut=({commit})=>{
-    commit('LOGOUT');
-    commit('CLEARLIST');
+    commit('logout');
+    commit('clearList');
 }
 
 export const updateTitle=({commit},e)=>{
-    commit('UPDATETITLE',e.target.value);
+    commit('updateTitle',e.target.value);
 }
 
 export const updateContent=({commit},e)=>{
-    commit('UPDATECONTENT',e.target.value);
+    commit('updateContent',e.target.value);
 }
 
 export const initList=({commit})=>{
-    commit('INITLIST');
+    commit('initList');
 }
 
 export const addItem=({commit})=>{
-    commit('ADDITEM');
+    commit('addItem');
 }
 
 export const deleteItem=({commit},index)=>{
-    commit('DELETEITEM',index);
+    commit('deleteItem',index);
 }
 
 export const completeItem=({commit},index)=>{
-    commit('COMPLETEITEM',index);
+    commit('completeItem',index);
 }
 
 export const changeFilter=({commit},type)=>{
-    commit('CHANGEFILTER',type);
+    commit('changeFilter',type);
 }
 
 export const goSearch=({commit},keywords)=>{
-    commit('GOSEARCH',keywords);
+    commit('goSearch',keywords);
 }
 
 export const addTag=({commit},itemId)=>{
-    commit('ADDTAG',itemId)
+    commit('addTag',itemId)
 }
 
 export const updateTag=({commit},e)=>{
-    commit('UPDATETAG',e.target.value);
+    commit('updateTag',e.target.value);
 }

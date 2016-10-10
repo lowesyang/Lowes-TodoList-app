@@ -10,7 +10,8 @@ const state={
 }
 
 const mutations= {
-    LOGIN(state, info){
+    //登录
+    login(state, info){
         let userName=info.usrName;
         let passWord=info.psWord;
         if (!userName) return Materialize.toast("用户名不得为空!", 3000);
@@ -42,7 +43,9 @@ const mutations= {
             state.isLoaded = true;
         })
     },
-    REGISTER(state, info){
+
+    //注册
+    register(state, info){
         let userName=info.usrName;
         let passWord=info.passWord;
         let cfPassWord=info.cfpsWord;
@@ -77,7 +80,9 @@ const mutations= {
             state.isLoaded = true;
         })
     },
-    LOGOUT(state){
+
+    //登出
+    logout(state){
         LS.clear();
         state.isLogin = false;
         router.push({path: '/'});

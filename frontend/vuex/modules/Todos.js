@@ -18,7 +18,8 @@ const state={
 const initState=DeepClone(state);
 
 const mutations={
-    INITLIST(state){
+    //获取todos列表
+    initList(state){
         let userInfo=LS.getItem('userInfo');
         state.listLoaded=false;
         Vue.http.get('/list/'+userInfo.userId).then((response)=>{
@@ -47,16 +48,24 @@ const mutations={
             state.list=state.store_list.slice();
         })
     },
-    UPDATETITLE(state,data){    //不能直接赋值，否则无法引起更新
+
+    //更新要添加的标题
+    updateTitle(state,data){    //不能直接赋值，否则无法引起更新
         Vue.set(state.addItem,'title',data);
     },
-    UPDATECONTENT(state,data){
+
+    //更新要添加的内容
+    updateContent(state,data){
         Vue.set(state.addItem,'content',data);
     },
-    UPDATETAG(state,data){
+
+    //更新要添加的标签
+    updateTag(state,data){
         state.addTag=data;
     },
-    ADDITEM(state){
+
+    //添加todos
+    addItem(state){
         let item=state.addItem;
         if(item.title=="") return Materialize.toast('事项标题不得为空!',3000);
         let userInfo=LS.getItem('userInfo');
@@ -95,7 +104,9 @@ const mutations={
             state.list=state.store_list.slice();
         })
     },
-    DELETEITEM(state,index){
+
+    //删除todos
+    deleteItem(state,index){
         let userInfo=LS.getItem('userInfo');
         state.isLoaded=false;
         Vue.http.put('/list/deleteItem',
@@ -125,7 +136,9 @@ const mutations={
             state.isLoaded=true;
         })
     },
-    COMPLETEITEM(state,index){
+
+    //完成todos
+    completeItem(state,index){
         let userInfo=LS.getItem('userInfo');
         state.isLoaded=false;
         Vue.http.put('/list/completeItem',
@@ -155,13 +168,19 @@ const mutations={
             state.isLoaded=true;
         })
     },
-    CHANGEFILTER(state,type){
+
+    //切换过滤器
+    changeFilter(state,type){
         state.filter=type;
     },
-    GOSEARCH(state,keywords){
+
+    //搜索相应todos
+    goSearch(state,keywords){
         state.list=state.store_list.filter(item=>item.title.indexOf(keywords)>=0);
     },
-    ADDTAG(state,itemId){
+
+    //添加标签，目前仅支持每个todos添加一个标签
+    addTag(state,itemId){
         let tag=state.addTag;
         let userId=LS.getItem('userInfo').userId;
         state.isLoaded=false;
@@ -196,7 +215,9 @@ const mutations={
             state.isLoaded=true;
         })
     },
-    CLEARLIST(state){
+
+    //清楚todos列表
+    clearList(state){
         for(let key in initState){
             state[key]=initState[key];
         }

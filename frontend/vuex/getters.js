@@ -1,16 +1,22 @@
+//loading加载图标显示
 export const isLoaded=state=>{
     if(state.User.isLogin) return state.Todos.isLoaded;
     else return state.User.isLoaded;
-}   //登录注册loading
+}
 
+//是否登录
 export const isLogin=state=>state.User.isLogin;
 
+//欲添加的标题
 export const addTitle=state=>state.Todos.addItem.title;
 
+//欲添加的内容
 export const addContent=state=>state.Todos.addItem.content;
 
+//欲添加的标签
 export const addTag=state=>state.Todos.addTag;
 
+//列表过滤器
 export const listFilter=state=>{
     let list=[];
     state=state.Todos;
@@ -29,6 +35,7 @@ export const listFilter=state=>{
     return list;
 }
 
+//无内容的反馈
 export const getNoResForList=state=>{
     let noRes;
     switch(state.Todos.filter){
@@ -42,4 +49,5 @@ export const getNoResForList=state=>{
     return noRes;
 }
 
+//列表loading图标显示
 export const listLoaded=state=>state.Todos.listLoaded;
