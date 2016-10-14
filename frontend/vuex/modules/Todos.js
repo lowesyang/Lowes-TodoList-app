@@ -88,7 +88,7 @@ const mutations={
                     tag:''
                 };
 
-                state.store_list.push(newItem);
+                state.store_list.unshift(newItem);
                 state.addItem={
                     title:'',
                     content:''
