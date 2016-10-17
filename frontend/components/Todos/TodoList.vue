@@ -30,7 +30,16 @@
         </div>
         <div class="addBox fr">
             <Add-item></Add-item>
-            <a class="waves-effect waves-light btn red logoutBtn" @click.stop="logOut">登出</a>
+            <a class="waves-effect waves-light btn red logoutBtn modal-trigger" href="#logoutModal">登出</a>
+            <div id="logoutModal" class="modal">
+                <div class="modal-content">
+                    <p>真的要登出吗？</p>
+                </div>
+                <div class="modal-footer">
+                    <a class=" modal-action modal-close waves-effect waves-light btn-flat red" @click.stop="logOut">确认</a>
+                    <a class=" modal-action modal-close waves-effect waves-light btn-flat">取消</a>
+                </div>
+            </div>
         </div>
         <div class="cl"></div>
         <Add-tags></Add-tags>
@@ -85,6 +94,18 @@
         font-size:20px;
         color:#cccccc;
         text-align: center;
+    }
+    #logoutModal{
+        width:400px;
+    }
+    #logoutModal .modal-content{
+        font-size:18px;
+    }
+    #logoutModal .modal-footer>a{
+        font-size:14px;
+    }
+    #logoutModal .modal-footer>a:first-child{
+        color:white;
     }
 </style>
 <script>

@@ -35,7 +35,8 @@ router.post('/login',function(req,res){
 
 
             if(data[0]){
-                var token=encrypt({userName:users.usrName});
+                var timestamp=new Date().getTime();
+                var token=encrypt({userName:users.usrName,timestamp:timestamp});
                 logger.info(ipAddress+' 登陆成功');
                 res.json({
                     code:0,
@@ -106,7 +107,8 @@ router.post('/register',function(req,res){
                     })
                 }
                 if(ddata){
-                    var token=encrypt({userName:users.usrName});
+                    var timestamp=new Date().getTime();
+                    var token=encrypt({userName:users.usrName,timestamp:timestamp});
                     logger.info(ipAddress+' 注册成功');
                     res.json({
                         code:0,
