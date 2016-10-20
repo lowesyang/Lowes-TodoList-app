@@ -7,7 +7,7 @@
                     <div class="input-field fr" v-if="isLogin">
                         <i class="material-icons prefix">search</i>
                         <input type="text" id="keywords" class="validate" v-model="keywords" @input="goSearch(keywords)">
-                        <label for="keywords">todos</label>
+                        <label for="keywords">待做事项</label>
                     </div>
                 </form>
                 <div class="cl"></div>
@@ -54,6 +54,7 @@
         width:100px;
         height:30px;
         color:white;
+        margin-top:12px;
     }
     .header .input-field input:focus{
         width:250px;
@@ -66,10 +67,10 @@
     .header .input-field input+label{
         color:#cccccc;
         height:20px;
-        margin-top: -8px;
+        margin-top: -10px;
     }
     .header .input-field input+label.active{
-        margin-top:-4px;
+        margin-top:0px;
     }
     .header .input-field .prefix.active{
         color:white;
