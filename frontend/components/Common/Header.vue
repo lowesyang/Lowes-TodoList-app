@@ -3,13 +3,11 @@
         <div class="header">
             <div class="con">
                 <div class="title" v-bind:class="{'noLogin':!isLogin,'fl':isLogin}">LowesTodos</div>
-                <form>
-                    <div class="input-field fr" v-if="isLogin">
-                        <i class="material-icons prefix">search</i>
-                        <input type="text" id="keywords" class="validate" v-model="keywords" @input="goSearch(keywords)">
-                        <label for="keywords">待做事项</label>
-                    </div>
-                </form>
+                <div class="input-field fr" v-if="isLogin">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="keywords" class="validate" v-model="keywords" @input="goSearch(keywords)">
+                    <label for="keywords">待做事项</label>
+                </div>
                 <div class="cl"></div>
             </div>
         </div>

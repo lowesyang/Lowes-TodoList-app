@@ -2,7 +2,7 @@
     <li>
         <div class="collapsible-header">
             <div class="completeBtn fl">
-                <input v-if="!completed" type="checkbox" :id="itemId" @click="completeItem(itemId)" />
+                <input v-if="!completed" type="checkbox" :id="itemId" @click="completeItem($event,itemId)" />
                 <input v-else type="checkbox" :id="itemId" checked="checked" disabled="disabled"/>
                 <label :for="itemId"></label>
             </div>
@@ -88,13 +88,14 @@
             tag:String
         },
         methods:{
-            ...mapActions({
-                deleteItem:'deleteItem',
-                completeItem:'completeItem'
-            }),
+            ...mapActions(['deleteItem']),
             showTagsBox(itemId){
                 LS.setItem('activeItem',itemId);
                 $('#addTagsBox').openModal();
+            },
+            completeItem(e,itemId){
+                e.preventDefault();
+                this.$store.dispatch('completeItem',itemId);
             }
         }
     }
