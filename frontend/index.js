@@ -38,6 +38,7 @@ Vue.http.interceptors.push((request,next)=>{
         }
         if(response.body.code==-1){
             return Materialize.toast(response.body.msg,3000,'',()=>{
+                LS.clear();
                 router.push({path:'/'})
             })
         }
