@@ -1,15 +1,10 @@
 import Vue from "vue/dist/vue.min";
-import VueRouter from "vue-router";
 import VueResource from "vue-resource";
 import VueHead from "vue-head";
 import store from "./vuex/store";
-import App from "./components/App.vue";
-import Login from "./components/User/Login.vue";
-import Register from "./components/User/Register.vue";
-import TodoList from "./components/Todos/TodoList.vue";
 import {LS} from "./helpers/Utils";
+import router from "./routes";
 
-Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(VueHead);
 
@@ -45,32 +40,6 @@ Vue.http.interceptors.push((request,next)=>{
     })
 })
 
-//路由配置
-const routes=[
-    {
-        path: '/',
-        component: App,
-        redirect:'/login',
-        children: [
-            {
-                path: '/login',
-                component: Login
-            },
-            {
-                path:'/register',
-                component: Register
-            },
-            {
-                path:'/list/:userId',
-                component: TodoList
-            }
-        ]
-    }
-];
-
-const router=new VueRouter({
-    routes,
-});
 
 const app=new Vue({
     router,

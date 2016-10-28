@@ -1,10 +1,15 @@
+var webpack=require("webpack");
+
 module.exports={
-    entry:[
-        './frontend/index',
-    ],
+    entry: {
+        main:'./frontend/index',
+        vendor:['vue','vuex','vue-router']
+    },
     output:{
-        path:'./',
-        filename:'bundle.js'
+        path:'./build',
+        filename:'bundle.min.js',
+        publicPath:'./build/',
+        chunkFilename:'[id].[chunkhash:5].chunk.js'
     },
     module:{
         loaders:[
@@ -30,5 +35,8 @@ module.exports={
     },
     resolve:{
         extensions:['','.js','.jsx']
-    }
+    },
+    plugins:[
+        new webpack.optimize.CommonsChunkPlugin('vendor','commons.js')
+    ]
 }

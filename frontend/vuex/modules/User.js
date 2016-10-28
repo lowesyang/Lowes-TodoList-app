@@ -1,7 +1,6 @@
 import Vue from "vue/dist/vue.min";
 import {LS} from "../../helpers/Utils";
-import router from "../../index";
-
+import router from "../../routes";
 let userInfo=LS.getItem("userInfo");
 
 const state={
