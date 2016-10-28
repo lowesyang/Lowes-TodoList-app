@@ -7,6 +7,7 @@ var login=require("./backend/router/login");
 var login_check=require("./backend/router/login_check");
 var todoActions=require("./backend/router/todoActions");
 var log4js=require("./backend/config/log.config.js");
+app.use(compress());
 
 
 app.use(express.static('./'));
@@ -19,7 +20,6 @@ app.use(expSession({
     saveUninitialized:true
 }));
 
-app.use(compress());
 
 app.use(log4js.connectLogger(log4js.getLogger('access'),{level:log4js.levels.INFO}));
 app.use('/',login_check);
