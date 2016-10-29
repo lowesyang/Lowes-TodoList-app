@@ -32,10 +32,8 @@ Vue.http.interceptors.push((request,next)=>{
             return;
         }
         if(response.body.code==-1){
-            return Materialize.toast(response.body.msg,3000,'',()=>{
-                store.commit("logout");
-                router.push({path:'/'})
-            })
+            store.commit("logout");
+            return Materialize.toast(response.body.msg,3000)
         }
     })
 })
